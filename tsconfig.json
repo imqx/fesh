@@ -33,9 +33,10 @@
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
-    "typeRoots": ["./typings/index.d.ts"]
+    "typeRoots": ["./typings/index.d.ts"],
+    "types": ["mocha", "node"]
   },
-  "include": ["src/**/*", "typings"],
+  "include": ["src/**/*", "typings", "test"],
   "exclude": [
     "node_modules",
     "build",

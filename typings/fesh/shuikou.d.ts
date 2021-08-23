@@ -1,5 +1,28 @@
 declare module '@siloqian/fesh-typings' {
   /**
+   * 水形类别
+   *
+   * @remarks
+   * - 潮水局：sjC1, sjC2, sjC3, sjC4;
+   * - 横水局：sjH1, sjH2;
+   * - 去水局：sjQu;
+   * - 聚水局：sjJu;
+   * - 无水局：sjWu
+   *
+   * @public
+   */
+  export type ShuiShapeSpec =
+    | 'sjC1'
+    | 'sjC2'
+    | 'sjC3'
+    | 'sjC4'
+    | 'sjH1'
+    | 'sjH2'
+    | 'sjJu'
+    | 'sjQu'
+    | 'sjWu';
+
+  /**
    * 水口综合类型定义，分入水口、出水口
    *
    * @typeParam T - 方位等属性类型
