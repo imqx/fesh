@@ -1,3 +1,5 @@
+import { JiaZi60, SanShan, ShuangShan } from '@siloqian/fesh-typings';
+
 /**
  * 六十甲子排序
  *

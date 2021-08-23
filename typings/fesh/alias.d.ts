@@ -4,7 +4,7 @@
  * @packageDocument
  */
 
-export declare global {
+declare module '@siloqian/fesh-typings' {
   /**
    * 十天干
    *
@@ -316,6 +316,14 @@ export declare global {
     | 'XN-YO'
     | 'RN-XU'
     | 'GW-HI';
+
+  /**
+   * 六十甲子数组类型
+   *
+   * @public
+   */
+  export type JiaZi60Array = [TianGan, DiZhi];
+
   /**
    * 长生十二宫
    *
@@ -452,4 +460,125 @@ export declare global {
    * @beta
    */
   export type Gender = 'M' | 'F';
+
+  /**
+   * 地盘正针指向类型
+   *
+   * @public
+   */
+  export type DPZZType = Shan24;
+  /**
+   * 人盘中针指向类型
+   *
+   * @public
+   */
+  export type RPZZType = Shan24;
+  /**
+   * 天盘缝针指向类型
+   *
+   * @public
+   */
+  export type TPFZType = Shan24;
+  /**
+   * 先天八卦
+   *
+   * @remarks
+   * Should it be different from {@link HTBGType}
+   *
+   * @public
+   */
+  export type XTBGType = BaGua;
+  /**
+   * 后天八卦
+   *
+   * @remarks
+   * Should it be different from {@link XTBGType}
+   *
+   * @public
+   */
+  export type HTBGType = BaGua;
+  /**
+   * 河图洛书数
+   *
+   * @privateRemarks
+   * Simila of the 2 Types, Which to use is not **SURE**
+   *
+   * @public
+   */
+  export type HTLSSType = HeTuLuoShuShu;
+  /**
+   * 穿山七十二龙
+   *
+   * @public
+   */
+  export type CS72LONGType = JiaZi60 | Gan8Wei4;
+  /**
+   * 八煞黄泉
+   *
+   * @public
+   */
+  export type BSHQType = DiZhi;
+  /**
+   * 二十四山劫煞
+   *
+   * @privateRemarks
+   * Not exactly
+   *
+   * @public
+   */
+  export type SH24JSType = Shan24;
+  /**
+   * 透地六十龙
+   *
+   * @public
+   */
+  export type TD60LONGType = JiaZi60;
+  /**
+   * 正针百二十分金类型
+   *
+   * @public
+   */
+  export type DPZZ120FJType = JiaZi60;
+
+  /**
+   * 罗盘层名称
+   *
+   * @remarks
+   * Enum of the types, should reorgnized with the keys by refs of the TYPES
+   *
+   * @public
+   */
+  export type LayerNames =
+    | 'DPZZ'
+    | 'RPZZ'
+    | 'TPFZ'
+    | 'XTBG'
+    | 'HTBG'
+    | 'HTLSS'
+    | 'CS72LONG'
+    | 'BSHQ'
+    | 'SH24JS'
+    | 'TD60LONG'
+    | 'DPZZ120FJ';
+
+  /**
+   * 河图洛书数 - 对
+   *
+   * @public
+   */
+  export type HTLSSTypePair = [HTLSSType, HTLSSType];
+
+  /**
+   * 阴阳类型 - 对
+   *
+   * @public
+   */
+  export type YinYangPair = [YinYan, YinYan];
+
+  /**
+   * 命卦 - 依据出生年计算
+   *
+   * @public
+   */
+  export type MingGua = BaGua;
 }

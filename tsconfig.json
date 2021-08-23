@@ -22,7 +22,7 @@
     "outDir": "./lib",
     "paths": {
       "@src/*": ["./src/*"],
-      "@assets/*": ["./assets/*"],
+      "@assets/*": ["./assets/*"]
     },
     "preserveConstEnums": true,
     "pretty": true,
@@ -32,9 +32,10 @@
     "sourceMap": true,
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es5"
+    "target": "es5",
+    "typeRoots": ["./typings/index.d.ts"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "typings"],
   "exclude": [
     "node_modules",
     "build",

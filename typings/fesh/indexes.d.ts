@@ -4,7 +4,7 @@
  * @packageDocument
  */
 
-declare module 'types/base' {
+declare module '@siloqian/fesh-typings' {
   /**
    * 天干索引类
    *
