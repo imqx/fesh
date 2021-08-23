@@ -1,0 +1,10 @@
+/lambda/
+/scripts
+/config
+/dist
+/test
+.history
+.eslintrc*
+*.md
+/lib
+/etc
