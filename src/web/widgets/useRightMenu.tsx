@@ -5,8 +5,8 @@ import MapIcon from '@material-ui/icons/Map';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 
 export interface IRightMenuProps {
-  setRslPos(menuContext: IMenuContext, closeRightMenu: () => void): void;
-  setXuePos(menuContext: IMenuContext, closeRightMenu: () => void): void;
+  setRslPos(menuContext: IMenuContext): void;
+  setXuePos(menuContext: IMenuContext): void;
 }
 
 export default function useRightMenu(props: IRightMenuProps) {
@@ -31,6 +31,11 @@ export default function useRightMenu(props: IRightMenuProps) {
   );
   const { setRslPos, setXuePos } = props;
 
+  const rightClick = (handle: (mc: IMenuContext) => void) => () => {
+    handle(menuContext);
+    closeRightMenu();
+  };
+
   const rightMenu = useMemo(() => {
     const { open, clientX, clientY } = menuContext;
     return (
@@ -41,13 +46,13 @@ export default function useRightMenu(props: IRightMenuProps) {
         anchorReference="anchorPosition"
         anchorPosition={{ left: clientX, top: clientY }}
       >
-        <MenuItem onClick={() => setRslPos(menuContext, closeRightMenu)}>
+        <MenuItem onClick={rightClick(setRslPos)}>
           <ListItemIcon>
             <MapIcon />
           </ListItemIcon>
           认龙
         </MenuItem>
-        <MenuItem onClick={() => setXuePos(menuContext, closeRightMenu)}>
+        <MenuItem onClick={rightClick(setXuePos)}>
           <ListItemIcon>
             <ApartmentIcon />
           </ListItemIcon>

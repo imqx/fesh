@@ -4,20 +4,16 @@ import React, { useMemo } from 'react';
 
 export default function useRslMarker(archive: ISolutionPack) {
   const { positions, positionActions } = archive;
+  const { rslPos } = positions;
 
   const rslMarker = useMemo(
     () =>
-      positions.rslPos ? (
-        <Marker lnglat={positions.rslPos.lnglat} type="rsl"></Marker>
-      ) : (
-        <></>
-      ),
-    [positions],
+      rslPos ? <Marker lnglat={rslPos.lnglat} type="rsl"></Marker> : <></>,
+    [rslPos],
   );
 
-  const setRslPos = (mc: IMenuContext, close: () => void) => {
+  const setRslPos = (mc: IMenuContext) => {
     positionActions.setRslPos({ lnglat: mc.position });
-    close();
   };
 
   return {

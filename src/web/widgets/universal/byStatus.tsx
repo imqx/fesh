@@ -2,7 +2,7 @@ import { Chip } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import React, { ReactElement, ReactNode } from 'react';
-import Loading from '../resource/Loading';
+import Loading from '../../resource/Loading';
 
 export interface IByStatusOptions<R> {
   prefix: string;

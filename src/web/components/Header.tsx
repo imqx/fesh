@@ -35,18 +35,12 @@ export default hidable(function ({
       border: 'none',
     },
     toolbar: {
-      paddingLeft: theme.spacing(2),
-    },
-    title: {
-      marginRight: theme.spacing(5),
+      paddingLeft: theme.spacing(0),
     },
     logo: {
-      paddingTop: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-      width: 78,
-      marginRight: 32,
-      backgroundColor: '#fff',
+      width: 128,
+      backgroundColor: 'transparent',
+      border: 'none',
     },
     flex: {
       flexGrow: 1,
@@ -71,7 +65,7 @@ export default hidable(function ({
       className={classes.appBar}
     >
       <Toolbar variant="dense" className={classes.toolbar}>
-        <Card variant="outlined" className={classes.logo}>
+        <Card square variant="outlined" className={classes.logo}>
           <Logo />
         </Card>
         <div className={classes.flex}>

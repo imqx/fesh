@@ -224,9 +224,9 @@ const svgs: Record<MarkerType, JSX.Element> = {
           gradientTransform="matrix(1, 0, 0, -1, 0, -348)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="gray" stop-opacity="0.25" />
-          <stop offset="0.54" stop-color="gray" stop-opacity="0.12" />
-          <stop offset="1" stop-color="gray" stop-opacity="0.1" />
+          <stop offset="0" stopColor="gray" stopOpacity="0.25" />
+          <stop offset="0.54" stopColor="gray" stopOpacity="0.12" />
+          <stop offset="1" stopColor="gray" stopOpacity="0.1" />
         </linearGradient>
         <linearGradient id="b" x1="91.14" y1="-412.23" x2="91.14" y2="-385.1" />
         <linearGradient

@@ -37,6 +37,9 @@ declare module '@siloqian/fesh-typings' {
     positionActions: IPositionActionsPack;
     magDec: IMagDecPack;
   }
+  interface IWithSolutionPack {
+    archive: ISolutionPack;
+  }
 
   // web
   type MapViewMode = 'normal' | 'zen';
