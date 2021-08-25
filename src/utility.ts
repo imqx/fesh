@@ -161,26 +161,26 @@ export function handleSingleOrArrayJoined<T, P>(
  * Make A Finder Function, Find in Array Somewhat
  *
  * @example
- *   const records = [
- *   {name: 'Lee', age: 35},
- *   {name: 'Wang', age: 72}
- *   ];
- *   const getAgeByName = recordFinder(records, (s1:string, s2:string)=> s1===s2, 'name', 'age');
- *   const age = getAgeByName('Lee');
- *   // age: 35
+ * const records = [
+ * {name: 'Lee', age: 35},
+ * {name: 'Wang', age: 72}
+ * ];
+ * const getAgeByName = recordFinder(records, (s1:string, s2:string)=> s1===s2, 'name', 'age');
+ * const age = getAgeByName('Lee');
+ * // age: 35
  *
- *   ```;
+ * ```;
  *
- *   @typeParam R - Record item type
- *   @typeParam K - The key find by
- *   @typeParam VK - The key what to find
- *   @param record - Array of Items
- *   @param match - Compare Function, return `true` if matched.
- *   @param findKey - Find By What
- *   @param resultKey - Find What
- *   @param msg - Not Found Message, default 'not found!'
- *   @returns The Finder Function
- *   @beta
+ * @typeParam R - Record item type
+ * @typeParam K - The key find by
+ * @typeParam VK - The key what to find
+ * @param record - Array of Items
+ * @param match - Compare Function, return `true` if matched.
+ * @param findKey - Find By What
+ * @param resultKey - Find What
+ * @param msg - Not Found Message, default 'not found!'
+ * @returns The Finder Function
+ * @beta
  */
 export function recordValueFinder<R, K extends keyof R, VK extends keyof R>(
   record: R[],
@@ -224,13 +224,13 @@ export function recordFinder<R, K extends keyof R>(
  * Make a Finder that find the key in an Object by value.
  *
  * @example
- *   ```
- *   const ages =  {lee: 35, john: 28, frank: 60};
- *   const getOneByAge = kvFinder(ages, (e: number, a: number) => e === a);
- *   const name = getOneByAge(35);
- *   // name: lee
+ * ```
+ * const ages =  {lee: 35, john: 28, frank: 60};
+ * const getOneByAge = kvFinder(ages, (e: number, a: number) => e === a);
+ * const name = getOneByAge(35);
+ * // name: lee
  *
- *   ```;
+ * ```;
  *
  * @typeParam R - Data Object Type
  * @typeParam A - Data Item Type
@@ -250,5 +250,71 @@ export function keyFinder<R, A>(
     let f = Object.entries(record).find((x) => predicate(x[1], asset));
     checkUndefined(f, `${msg}-[${stringifyAny(asset)}]`);
     return f![0] as keyof R;
+  };
+}
+
+/**
+ * Produce a Replacement of a template with patterned Arguments.
+ * Use default pattern like `#name`, and escape by `!#name`.
+ *
+ * @example
+ * ```
+ * const objArg = { name: 'Lee' };
+ * const strArg = 'Bruce';
+ * const arrArg = ['Bill', 'Frank', 'Robert'];
+ * const tempForObj = 'Hello, #{name}! !!#{name} is not replaced.';
+ * const tempForStr = 'Hello, #{0}';
+ * const tempForArr = '#{0} says, #{1} and #{2} are my friends. !!#{1} did nothing.';
+ * const temper = templateReplacementBuilder('#{', '}');
+
+ * temper(tempForObj)(objArg);
+ * [LOG]: "Hello, Lee! !#{name} is not replaced."
+ *
+ * temper(tempForStr)(strArg);
+ * [LOG]: "Hello, Bruce"
+ *
+ * temper(tempForArr)(arrArg);
+ * [LOG]: "Bill says, Frank and Robert are my friends. !#{1} did nothing."
+ * ```
+ *
+ * @param bracketStart - start of a replacement bracket
+ * @param bracketEnd - end of a replacement bracket
+ * @param escape - escape start
+ * @returns function that holding a template.
+ * @beta
+ */
+export function templateReplacementBuilder<
+  K extends string = string,
+  V extends string = string,
+>(bracketStart: string = '#', bracketEnd: string = '', escape: string = '!') {
+  if (escape === '\\') {
+    throw 'escape should not be `\\`';
+  }
+  const regHold = (name: string) =>
+    new RegExp(`(?<!${escape})${bracketStart}${name}${bracketEnd}`, 'g');
+  const esc = (temp: string) =>
+    temp.replace(
+      new RegExp(`${escape}${bracketStart}`, 'g'),
+      `${bracketStart}`,
+    );
+  return function (template: string) {
+    return function (data: Record<K, V> | string | Array<string>) {
+      if (typeof data === 'string') {
+        return esc(template.replace(regHold('[0]'), data));
+      } else if (data instanceof Array) {
+        return esc(
+          data.reduce(
+            (p, c, i) => p.replace(regHold(`[${i.toString()}]`), c),
+            template,
+          ),
+        );
+      }
+      return esc(
+        Object.entries(data).reduce(
+          (p, [k, v]) => p.replace(regHold(k), v as string),
+          template,
+        ),
+      );
+    };
   };
 }

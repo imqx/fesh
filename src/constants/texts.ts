@@ -14,9 +14,7 @@ import {
 import { checkUndefined } from '@src/utility';
 
 /** 释义集合 */
-const textMain: {
-  [en in TextKeys]: string;
-} = {
+const textMain: Record<TextKeys, string> = {
   JA: '甲',
   YI: '乙',
   BN: '丙',
@@ -291,9 +289,7 @@ const textMain: {
 };
 
 /** 释义（别名）集合 */
-const textAlias: {
-  [en in TextKeys]?: string;
-} = {
+const textAlias: Partial<Record<TextKeys, string>> = {
   Tin: '南北卦',
   Dee: '江东卦',
   Ren: '江西卦',
@@ -320,6 +316,21 @@ const defaultOptions: TextOptions = {
 };
 
 /** 释义查找方法 */
+const resultsArray = function (
+  val: TextKeyType | TextUnoinType,
+  lo: Partial<Record<TextKeys, string>>,
+  notFoundReplace: (t: string) => string,
+): string[] {
+  if (val instanceof Array) {
+    return val.map((c) => lo[c] || notFoundReplace(c));
+  } else if (val.indexOf('-') !== -1) {
+    return val.split('-').map((c) => lo[c] || notFoundReplace(c));
+  } else {
+    return [lo[val]] || [notFoundReplace(val)];
+  }
+};
+
+/** 释义查找方法创建方法 */
 function makeTextFinder(alias: boolean = false) {
   return function (
     val: TextKeyType | TextUnoinType,
@@ -331,17 +342,8 @@ function makeTextFinder(alias: boolean = false) {
     };
     const lo = alias ? textAlias : textMain;
     const notFoundReplace = (x: string) => notFoundTemplate.replace(/\#/g, x);
-    const resultsArray = function (val: TextKeyType | TextUnoinType): string[] {
-      if (val instanceof Array) {
-        return val.map((c) => lo[c] || notFoundReplace(c));
-      } else if (val.indexOf('-') !== -1) {
-        return val.split('-').map((c) => lo[c] || notFoundReplace(c));
-      } else {
-        return [lo[val]] || [notFoundReplace(val)];
-      }
-    };
     return onEndFormatter(
-      resultsArray(val)
+      resultsArray(val, lo, notFoundReplace)
         .map((s) => formatter(s))
         .join(separator),
     );
@@ -355,7 +357,7 @@ function makeTextFinder(alias: boolean = false) {
  * @returns 释义结果字符串
  * @beta
  */
-export function $T(val: TextKeyType | TextUnoinType): string;
+export function $t(val: TextKeyType | TextUnoinType): string;
 /**
  * 查找中文释义
  *
@@ -364,11 +366,11 @@ export function $T(val: TextKeyType | TextUnoinType): string;
  * @returns 释义结果字符串
  * @beta
  */
-export function $T(
+export function $t(
   val: TextKeyType | TextUnoinType,
   opts: Partial<TextOptions>,
 ): string;
-export function $T(
+export function $t(
   val: TextKeyType | TextUnoinType,
   opts: Partial<TextOptions> = defaultOptions,
 ): string {
@@ -382,7 +384,7 @@ export function $T(
  * @returns 释义结果字符串 - 别名
  * @beta
  */
-export function $A(val: TextKeyType | TextUnoinType): string;
+export function $a(val: TextKeyType | TextUnoinType): string;
 /**
  * 查找中文释义 - 别名
  *
@@ -391,11 +393,11 @@ export function $A(val: TextKeyType | TextUnoinType): string;
  * @returns 释义结果字符串 - 别名
  * @beta
  */
-export function $A(
+export function $a(
   val: TextKeyType | TextUnoinType,
   opts: Partial<TextOptions>,
 ): string;
-export function $A(
+export function $a(
   val: TextKeyType | TextUnoinType,
   opts: Partial<TextOptions> = defaultOptions,
 ): string {
@@ -407,9 +409,9 @@ export function $A(
  *
  * @example
  * ```
- * glWithJianXiang('CN', 'CN'); // 正辰
- * glWithJianXiang('ZI', 'GW'); // 兼癸
- * glWithJianXiang('XN', 'YO', 'MO'); // 兼酉卯
+ * $tWithJianXiang('CN', 'CN'); // 正辰
+ * $tWithJianXiang('ZI', 'GW'); // 兼癸
+ * $tWithJianXiang('XN', 'YO', 'MO'); // 兼酉卯
  * ```
  *
  * @param z - 主向方位
@@ -418,8 +420,8 @@ export function $A(
  * @returns 释义文本
  * @beta
  */
-export function $TWithJianXiang(z: Shan24, j: Shan24, x?: Shan24) {
-  return (z === j ? `正${$T(z)}` : `兼${$T(j)}`) + (x ? $T(x) : '');
+export function $tWithJianXiang(z: Shan24, j: Shan24, x?: Shan24) {
+  return (z === j ? `正${$t(z)}` : `兼${$t(j)}`) + (x ? $t(x) : '');
 }
 
 const textMainEntries = Object.entries(textMain);
@@ -430,11 +432,11 @@ const textAliasEntries = Object.entries(textAlias);
  *
  * @example
  * ```
- * $R<DiZhi>('子'); // 'ZI'
- * $R<Shan24>('乾'); // 'QIAN'
- * $R<JiaZi60>('甲午'); // ['JA', 'WU']
- * $R<[JiaZi60, JiaZi60, JiaZi60, JiaZi60]>('丙寅丙申丁酉己酉', 2); // [['BN', 'YN'],['BN', 'SN'],['DN', 'YO'],['JI', 'YO']]
- * $R<BaGua>('张'); // ''
+ * $r<DiZhi>('子'); // 'ZI'
+ * $r<Shan24>('乾'); // 'QIAN'
+ * $r<JiaZi60>('甲午'); // ['JA', 'WU']
+ * $r<[JiaZi60, JiaZi60, JiaZi60, JiaZi60]>('丙寅丙申丁酉己酉', 2); // [['BN', 'YN'],['BN', 'SN'],['DN', 'YO'],['JI', 'YO']]
+ * $r<BaGua>('张'); // throw Error `The key of [张] not exist.`
  * ```
  *
  * @typeParam T - 返回Key值的类型，需要指定，默认为`any`
@@ -445,7 +447,7 @@ const textAliasEntries = Object.entries(textAlias);
  * @throws 找不到结果时，抛出异常
  * @beta
  */
-export function $R<T>(
+export function $r<T>(
   val: string,
   slice: number = 1,
   alias: boolean = false,

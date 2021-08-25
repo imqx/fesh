@@ -33,7 +33,7 @@
     "deb": "ts-node -r tsconfig-paths/register example/deb.ts",
     "api": "api-extractor run --local --diagnostics",
     "doc": "api-documenter markdown --input-folder ./temp --output-folder ./docs",
-    "web": "parcel serve ./src/index.html ./src/favicon.png"
+    "web": "parcel serve ./src/web/index.html ./src/web/favicon.png"
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "^0.0.8",
