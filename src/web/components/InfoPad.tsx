@@ -5,7 +5,7 @@ import React from 'react';
 import withHide from '../wrappers/withHide';
 import { IWithSolutionPack } from '@siloqian/fesh-typings';
 import RslCard from './cards/RslCard';
-import XueCard from './cards/xueCard';
+import XueCard from './cards/XueCard';
 
 export interface IInfoPadCallbacks {}
 

@@ -3,6 +3,7 @@
 /// <reference path="./basha.d.ts" />
 /// <reference path="./bazhai.d.ts" />
 /// <reference path="./conclusion.d.ts" />
+/// <reference path="./entity.d.ts" />
 /// <reference path="./indexes.d.ts" />
 /// <reference path="./nayinwuxing.d.ts" />
 /// <reference path="./sanyuan.d.ts" />

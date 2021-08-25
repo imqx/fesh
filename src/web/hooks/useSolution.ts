@@ -1,6 +1,6 @@
 import { IMagDecPack, ISolutionPack } from '@siloqian/fesh-typings';
 import { useEffect, useState } from 'react';
-import { fetchMagneticDeclination } from '../utils/magnetic';
+import { fetchMagneticDeclination } from '../../index';
 
 export function useSolution(): ISolutionPack {
   const [rslPos, setRslPos] = useState<IWithLngLat>();

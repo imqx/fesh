@@ -32,7 +32,8 @@
     "svg": "ts-node -r tsconfig-paths/register src/utility/luopanSvg.ts",
     "api": "api-extractor run --local --diagnostics",
     "doc": "api-documenter markdown --input-folder ./temp --output-folder ./docs",
-    "web": "parcel serve ./src/web/index.html ./src/web/favicon.png"
+    "web": "parcel serve ./src/web/index.html ./src/web/favicon.png",
+    "pub-types": "cd ./typings && yarn publish"
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "^0.0.8",

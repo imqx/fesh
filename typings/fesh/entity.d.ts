@@ -1,7 +1,7 @@
 declare module '@siloqian/fesh-typings' {
   // base
 
-  interface IDirection {
+  interface IWithDirection {
     alpha: number;
     direction: Shan24;
   }

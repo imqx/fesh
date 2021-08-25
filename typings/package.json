@@ -1,0 +1,19 @@
+{
+  "name": "@siloqian/fesh-types",
+  "version": "0.1.1",
+  "description": "Types for Fesh project",
+  "main": "fesh/index.d.ts",
+  "homepage": "https://github.com/siloqian/fesh#readme",
+  "bugs": {
+    "url": "https://github.com/siloqian/fesh/issues"
+  },
+  "repository": "git://github.com/siloqian/fesh.git",
+  "files": [
+    "fesh"
+  ],
+  "author": "Silo QIAN<qtisan@hotmail.com>",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}
