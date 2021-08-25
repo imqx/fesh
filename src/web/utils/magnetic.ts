@@ -23,8 +23,10 @@ export async function fetchMagneticDeclination(lng: number, lat: number) {
     return 0;
   } else {
     const [, d, s] = match;
-    return d[0] === '-'
-      ? Number(d) - Number(s) / 60
-      : Number(d) + Number(s) / 60;
+    return d
+      ? d[0] === '-'
+        ? Number(d) - Number(s) / 60
+        : Number(d) + Number(s) / 60
+      : 0;
   }
 }
